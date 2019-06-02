@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceRegister", "ServiceRegister\ServiceRegister.csproj", "{BF77CD6E-9734-4F86-BFE8-996292F319FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRegisterTests", "ServiceRegisterTests\ServiceRegisterTests.csproj", "{1D05DD58-7C28-4846-B46B-D672A98E28CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF77CD6E-9734-4F86-BFE8-996292F319FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF77CD6E-9734-4F86-BFE8-996292F319FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF77CD6E-9734-4F86-BFE8-996292F319FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF77CD6E-9734-4F86-BFE8-996292F319FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D05DD58-7C28-4846-B46B-D672A98E28CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D05DD58-7C28-4846-B46B-D672A98E28CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D05DD58-7C28-4846-B46B-D672A98E28CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D05DD58-7C28-4846-B46B-D672A98E28CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1B6A4BE-44DB-441A-A60D-C51E01EFDA71}
+	EndGlobalSection
+EndGlobal

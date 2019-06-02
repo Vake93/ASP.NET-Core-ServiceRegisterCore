@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Authors>Vishvaka Ranasinghe</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl>https://github.com/Vake93/ASP.NET-Core-Simple-Service-Register/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Vake93/ASP.NET-Core-Simple-Service-Register</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Vake93/ASP.NET-Core-Simple-Service-Register</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageTags>ServiceRegister, ASP.Net Core, Services</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
+  </ItemGroup>
+
+</Project>
