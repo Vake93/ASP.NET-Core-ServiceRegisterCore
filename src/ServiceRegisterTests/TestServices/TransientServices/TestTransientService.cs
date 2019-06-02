@@ -3,8 +3,10 @@ using System;
 
 namespace ServiceRegisterTests.TestServices.TransientServices
 {
-    [TransientService(implementationAsSelf: true)]
-    public class TestTransientService : ITestTransientService
+    [TransientService(
+        implementationExcludes: typeof(IEquatable<TestTransientService>), 
+        implementationAsSelf: true)]
+    public class TestTransientService : ITestTransientService, IEquatable<TestTransientService>
     {
         public TestTransientService()
         {
@@ -12,5 +14,10 @@ namespace ServiceRegisterTests.TestServices.TransientServices
         }
 
         public Guid ServiceId { get; private set; }
+
+        public bool Equals(TestTransientService other)
+        {
+            return (other?.ServiceId ?? Guid.Empty) == ServiceId;
+        }
     }
 }

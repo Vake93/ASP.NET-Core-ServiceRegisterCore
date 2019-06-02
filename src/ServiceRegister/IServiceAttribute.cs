@@ -7,6 +7,8 @@ namespace ServiceRegister
     {
         bool ImplementationAsSelf { get; }
 
+        Type[] ImplementationExcludes { get; }
+
         void AddService(
             IServiceCollection services,
             Type serviceType,

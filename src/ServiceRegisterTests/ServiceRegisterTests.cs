@@ -5,6 +5,8 @@ using ServiceRegisterTests.TestServices.ScopedServices;
 using ServiceRegisterTests.TestServices.SingletonServices;
 using ServiceRegisterTests.TestServices.TransientServices;
 using System;
+using System.Linq;
+using System.Reflection;
 
 namespace Tests
 {
@@ -24,8 +26,8 @@ namespace Tests
         [Test]
         public void TestTransientService()
         {
-            var testTransientServiceAsSelf = serviceProvider.GetRequiredService<TestTransientService>();
-            var testTransientServiceAsInterface = serviceProvider.GetRequiredService<ITestTransientService>();
+            var testTransientServiceAsSelf = serviceProvider.GetService<TestTransientService>();
+            var testTransientServiceAsInterface = serviceProvider.GetService<ITestTransientService>();
 
             Assert.IsNotNull(testTransientServiceAsSelf);
             Assert.IsNotNull(testTransientServiceAsInterface);
@@ -36,8 +38,8 @@ namespace Tests
         [Test]
         public void TestScopedServices()
         {
-            var testScopedServiceAsSelf = serviceProvider.GetRequiredService<TestScopedService>();
-            var testScopedServiceAsInterface = serviceProvider.GetRequiredService<ITestScopedService>();
+            var testScopedServiceAsSelf = serviceProvider.GetService<TestScopedService>();
+            var testScopedServiceAsInterface = serviceProvider.GetService<ITestScopedService>();
 
             Assert.IsNotNull(testScopedServiceAsSelf);
             Assert.IsNotNull(testScopedServiceAsInterface);
@@ -46,7 +48,7 @@ namespace Tests
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var newScopeScopedService = scope.ServiceProvider.GetRequiredService<ITestScopedService>();
+                var newScopeScopedService = scope.ServiceProvider.GetService<ITestScopedService>();
 
                 Assert.IsNotNull(newScopeScopedService);
 
@@ -57,8 +59,8 @@ namespace Tests
         [Test]
         public void TestSingletonService()
         {
-            var testSingletonServiceAsSelf = serviceProvider.GetRequiredService<TestSingletonService>();
-            var testSingletonServiceAsInterface = serviceProvider.GetRequiredService<ITestSingletonService>();
+            var testSingletonServiceAsSelf = serviceProvider.GetService<TestSingletonService>();
+            var testSingletonServiceAsInterface = serviceProvider.GetService<ITestSingletonService>();
 
             Assert.IsNotNull(testSingletonServiceAsSelf);
             Assert.IsNotNull(testSingletonServiceAsInterface);
@@ -67,12 +69,44 @@ namespace Tests
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var newScopeSingletonService = scope.ServiceProvider.GetRequiredService<ITestSingletonService>();
+                var newScopeSingletonService = scope.ServiceProvider.GetService<ITestSingletonService>();
 
                 Assert.IsNotNull(newScopeSingletonService);
 
                 Assert.AreSame(testSingletonServiceAsSelf, newScopeSingletonService);
             }
+        }
+
+        [Test]
+        public void TestImplementationExcludesImplicit()
+        {
+            var testScopedServiceTypeInfo = typeof(TestScopedService).GetTypeInfo();
+
+            var implementsDisposable = testScopedServiceTypeInfo
+                .ImplementedInterfaces
+                .Contains(typeof(IDisposable));
+
+            Assert.IsTrue(implementsDisposable);
+
+            var testDisposable = serviceProvider.GetService<IDisposable>();
+
+            Assert.IsNull(testDisposable);
+        }
+
+        [Test]
+        public void TestImplementationExcludesExplicit()
+        {
+            var transientServiceTypeInfo = typeof(TestTransientService).GetTypeInfo();
+
+            var implementsEquatable = transientServiceTypeInfo
+                .ImplementedInterfaces
+                .Contains(typeof(IEquatable<TestTransientService>));
+
+            Assert.IsTrue(implementsEquatable);
+
+            var testEquatable = serviceProvider.GetService<IEquatable<TestTransientService>>();
+
+            Assert.IsNull(testEquatable);
         }
     }
 }

@@ -11,7 +11,17 @@ namespace ServiceRegister
             ImplementationAsSelf = implementationAsSelf;
         }
 
+        public SingletonServiceAttribute(
+            bool implementationAsSelf = false,
+            params Type[] implementationExcludes)
+            : this(implementationAsSelf)
+        {
+            ImplementationExcludes = implementationExcludes;
+        }
+
         public bool ImplementationAsSelf { get; }
+
+        public Type[] ImplementationExcludes { get; }
 
         void IServiceAttribute.AddService(
            IServiceCollection services,
