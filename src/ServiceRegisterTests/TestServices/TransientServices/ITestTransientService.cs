@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ServiceRegisterTests.TestServices
+namespace ServiceRegisterTests.TestServices.TransientServices
 {
     public interface ITestTransientService
     {

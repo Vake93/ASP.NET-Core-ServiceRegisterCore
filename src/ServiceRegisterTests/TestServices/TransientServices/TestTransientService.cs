@@ -1,7 +1,7 @@
 ﻿using ServiceRegister;
 using System;
 
-namespace ServiceRegisterTests.TestServices
+namespace ServiceRegisterTests.TestServices.TransientServices
 {
     [TransientService(implementationAsSelf: true)]
     public class TestTransientService : ITestTransientService
