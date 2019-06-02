@@ -43,11 +43,19 @@ namespace ServiceRegister
                 {
                     if (serviceAttribute.ImplementationAsSelf)
                     {
+                        //Gets DI'ed as class type and as the interface type
                         serviceAttribute.AddService(services, serviceType, serviceType);
-                    }
 
-                    //1 interface, so gets DI'ed as interface type
-                    serviceAttribute.AddService(services, serviceTypeInterfaces[0], serviceType);
+                        serviceAttribute.AddService(
+                            services,
+                            serviceTypeInterfaces[0],
+                            x => x.GetRequiredService(serviceType));
+                    }
+                    else
+                    {
+                        //1 interface, gets DI'ed as interface type
+                        serviceAttribute.AddService(services, serviceTypeInterfaces[0], serviceType);
+                    }
                 }
                 else
                 {
