@@ -1,5 +1,4 @@
-(
-https://www.nuget.org/packages/ServiceRegisterCore/# ServiceRegisterCore 
+# ServiceRegisterCore 
 ## Class Annotation Based Service Registration for ASP.NET Core
 
 When registring a lot of services in a ASP.NET Core Project ConfigureServices Method often get filled with service add methods.
