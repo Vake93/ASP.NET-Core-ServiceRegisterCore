@@ -10,6 +10,7 @@
     <RepositoryUrl>https://github.com/Vake93/ASP.NET-Core-Simple-Service-Register</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>ServiceRegister, ASP.Net Core, Services</PackageTags>
+    <PackageId>ServiceRegisterCore</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

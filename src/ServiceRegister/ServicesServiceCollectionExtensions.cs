@@ -7,6 +7,11 @@ namespace ServiceRegister
 {
     public static class ServicesServiceCollectionExtensions
     {
+        private static readonly Type[] DefaultImplementationExcludes = new Type[]
+        {
+            typeof(IDisposable)
+        };
+
         public static void ConfigureApplicationServices(this IServiceCollection services)
         {
             var assembly = Assembly.GetCallingAssembly();
@@ -28,10 +33,14 @@ namespace ServiceRegister
             foreach (var serviceType in serviceTypes)
             {
                 var serviceAttribute = serviceType.GetCustomAttribute(typeof(T)) as IServiceAttribute;
+
+                var implementationExcludes = serviceAttribute.ImplementationExcludes ??
+                    DefaultImplementationExcludes;
+
                 var serviceTypeInfo = serviceType.GetTypeInfo();
                 var serviceTypeInterfaces = serviceTypeInfo
                     .ImplementedInterfaces
-                    .Where(i => i != typeof(IDisposable))
+                    .Where(i => !implementationExcludes.Contains(i))
                     .ToArray();
 
                 if (serviceTypeInterfaces.Length == 0)

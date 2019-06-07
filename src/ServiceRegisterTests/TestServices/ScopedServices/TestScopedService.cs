@@ -4,7 +4,7 @@ using System;
 namespace ServiceRegisterTests.TestServices.ScopedServices
 {
     [ScopedService(implementationAsSelf: true)]
-    public class TestScopedService : ITestScopedService
+    public class TestScopedService : ITestScopedService, IDisposable
     {
         public TestScopedService()
         {
@@ -12,5 +12,10 @@ namespace ServiceRegisterTests.TestServices.ScopedServices
         }
 
         public Guid ServiceId { get; private set; }
+
+        public void Dispose()
+        {
+            ServiceId = Guid.Empty;
+        }
     }
 }
