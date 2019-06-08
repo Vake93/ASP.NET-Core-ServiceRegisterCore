@@ -5,12 +5,16 @@
     <Authors>Vishvaka Ranasinghe</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseUrl>https://github.com/Vake93/ASP.NET-Core-Simple-Service-Register/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/Vake93/ASP.NET-Core-Simple-Service-Register</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Vake93/ASP.NET-Core-Simple-Service-Register</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/Vake93/ASP.NET-Core-ServiceRegisterCore/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Vake93/ASP.NET-Core-ServiceRegisterCore</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Vake93/ASP.NET-Core-ServiceRegisterCore</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>ServiceRegister, ASP.Net Core, Services</PackageTags>
     <PackageId>ServiceRegisterCore</PackageId>
+    <Product>ServiceRegisterCore</Product>
+    <Version>1.0.1</Version>
+    <Description>Class Annotation Based Service Registration for ASP.NET Core</Description>
+    <PackageReleaseNotes>Adding Services from External Assemblies</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
