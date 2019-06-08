@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServiceRegister\ServiceRegister.csproj" />
+    <ProjectReference Include="..\TestServiceLibrary\TestServiceLibrary.csproj" />
   </ItemGroup>
 
 </Project>

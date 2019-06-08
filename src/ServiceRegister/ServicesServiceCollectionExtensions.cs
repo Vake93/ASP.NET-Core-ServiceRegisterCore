@@ -16,6 +16,21 @@ namespace ServiceRegister
         {
             var assembly = Assembly.GetCallingAssembly();
 
+            AddApplicationServices(services, assembly);
+        }
+
+        public static void ConfigureApplicationServices(
+            this IServiceCollection services,
+            params Assembly[] scanAssemblies)
+        {
+            foreach (var assembly in scanAssemblies)
+            {
+                AddApplicationServices(services, assembly);
+            } 
+        }
+
+        private static void AddApplicationServices(IServiceCollection services, Assembly assembly)
+        {
             AddToServiceCollection<SingletonServiceAttribute>(assembly, services);
 
             AddToServiceCollection<ScopedServiceAttribute>(assembly, services);
