@@ -18,7 +18,8 @@ namespace Tests
         {
             var serviceCollection = new ServiceCollection();
 
-            serviceCollection.ConfigureApplicationServices();
+            serviceCollection.ConfigureApplicationServices(
+                options => options.ScanForModuleAssemblies = true);
 
             serviceProvider = serviceCollection.BuildServiceProvider();
         }
@@ -46,14 +47,12 @@ namespace Tests
 
             Assert.AreSame(testScopedServiceAsInterface, testScopedServiceAsSelf);
 
-            using (var scope = serviceProvider.CreateScope())
-            {
-                var newScopeScopedService = scope.ServiceProvider.GetService<ITestScopedService>();
+            using var scope = serviceProvider.CreateScope();
+            var newScopeScopedService = scope.ServiceProvider.GetService<ITestScopedService>();
 
-                Assert.IsNotNull(newScopeScopedService);
+            Assert.IsNotNull(newScopeScopedService);
 
-                Assert.AreNotSame(testScopedServiceAsSelf, newScopeScopedService);
-            }
+            Assert.AreNotSame(testScopedServiceAsSelf, newScopeScopedService);
         }
 
         [Test]
@@ -67,14 +66,12 @@ namespace Tests
 
             Assert.AreSame(testSingletonServiceAsInterface, testSingletonServiceAsSelf);
 
-            using (var scope = serviceProvider.CreateScope())
-            {
-                var newScopeSingletonService = scope.ServiceProvider.GetService<ITestSingletonService>();
+            using var scope = serviceProvider.CreateScope();
+            var newScopeSingletonService = scope.ServiceProvider.GetService<ITestSingletonService>();
 
-                Assert.IsNotNull(newScopeSingletonService);
+            Assert.IsNotNull(newScopeSingletonService);
 
-                Assert.AreSame(testSingletonServiceAsSelf, newScopeSingletonService);
-            }
+            Assert.AreSame(testSingletonServiceAsSelf, newScopeSingletonService);
         }
 
         [Test]
@@ -107,6 +104,31 @@ namespace Tests
             var testEquatable = serviceProvider.GetService<IEquatable<TestTransientService>>();
 
             Assert.IsNull(testEquatable);
+        }
+
+        [Test]
+        public void TestAssemblyResolver()
+        {
+            var assemblyNames = Assembly
+                .GetExecutingAssembly()
+                .GetReferencedAssemblies();
+
+            var assemblies = assemblyNames
+                .Select(Assembly.Load)
+                .ToArray();
+
+            Assert.IsNotNull(assemblies);
+
+            var assembliesToScan = assemblies
+                .Where(a => !a.IsDynamic)
+                .SelectMany(a => a.ExportedTypes)
+                .Where(t => typeof(IModule).IsAssignableFrom(t) && t.IsClass)
+                .Select(t => t.Assembly)
+                .ToArray();
+
+            Assert.IsNotNull(assembliesToScan);
+
+            Assert.AreEqual(1, assembliesToScan.Length);
         }
     }
 }

@@ -9,12 +9,38 @@ namespace ServiceRegister
     {
         private static readonly Type[] DefaultImplementationExcludes = new Type[]
         {
-            typeof(IDisposable)
+        typeof(IDisposable)
         };
 
-        public static void ConfigureApplicationServices(this IServiceCollection services)
+        public static void ConfigureApplicationServices(
+            this IServiceCollection services,
+            Action<ServiceRegisterOptionsBuilder> optionsAction = null)
         {
             var assembly = Assembly.GetCallingAssembly();
+
+            var options = new ServiceRegisterOptionsBuilder
+            {
+                ScanForModuleAssemblies = false
+            };
+
+            if (optionsAction is Action<ServiceRegisterOptionsBuilder>)
+            {
+                optionsAction(options);
+            }
+
+            if (options.ScanForModuleAssemblies)
+            {
+                var assembliesToScan = assembly
+                    .GetReferencedAssemblies()
+                    .Select(Assembly.Load)
+                    .Where(a => !a.IsDynamic)
+                    .SelectMany(a => a.ExportedTypes)
+                    .Where(t => typeof(IModule).IsAssignableFrom(t) && t.IsClass)
+                    .Select(t => t.Assembly)
+                    .ToArray();
+
+                ConfigureApplicationServices(services, assembliesToScan);
+            }
 
             AddApplicationServices(services, assembly);
         }
@@ -26,7 +52,7 @@ namespace ServiceRegister
             foreach (var assembly in scanAssemblies)
             {
                 AddApplicationServices(services, assembly);
-            } 
+            }
         }
 
         private static void AddApplicationServices(IServiceCollection services, Assembly assembly)
