@@ -9,7 +9,7 @@ namespace ServiceRegister
     {
         private static readonly Type[] DefaultImplementationExcludes = new Type[]
         {
-        typeof(IDisposable)
+            typeof(IDisposable)
         };
 
         public static void ConfigureApplicationServices(
@@ -91,6 +91,8 @@ namespace ServiceRegister
                 }
                 else if (serviceTypeInterfaces.Length == 1)
                 {
+                    var serviceTypeInterface = GetGenericTypeDefinition(serviceTypeInterfaces[0]);
+
                     if (serviceAttribute.ImplementationAsSelf)
                     {
                         //Gets DI'ed as class type and as the interface type
@@ -98,13 +100,13 @@ namespace ServiceRegister
 
                         serviceAttribute.AddService(
                             services,
-                            serviceTypeInterfaces[0],
+                            serviceTypeInterface,
                             x => x.GetRequiredService(serviceType));
                     }
                     else
                     {
                         //1 interface, gets DI'ed as interface type
-                        serviceAttribute.AddService(services, serviceTypeInterfaces[0], serviceType);
+                        serviceAttribute.AddService(services, serviceTypeInterface, serviceType);
                     }
                 }
                 else
@@ -118,11 +120,21 @@ namespace ServiceRegister
                     {
                         serviceAttribute.AddService(
                             services,
-                            serviceTypeInterface,
+                            GetGenericTypeDefinition(serviceTypeInterface),
                             x => x.GetRequiredService(serviceType));
                     }
                 }
             }
+        }
+
+        private static Type GetGenericTypeDefinition(Type type)
+        {
+            if (type.IsGenericType && type.ContainsGenericParameters)
+            {
+                return type.GetGenericTypeDefinition();
+            }
+
+            return type;
         }
     }
 }
