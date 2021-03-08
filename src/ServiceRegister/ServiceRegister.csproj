@@ -14,7 +14,7 @@
     <Product>ServiceRegisterCore</Product>
     <Version>5.0.0</Version>
     <Description>Class Annotation Based Service Registration for ASP.NET Core</Description>
-    <PackageReleaseNotes>Adding Services from External Assemblies</PackageReleaseNotes>
+    <PackageReleaseNotes>.NET 5 / ASP.NET 5 Support</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
