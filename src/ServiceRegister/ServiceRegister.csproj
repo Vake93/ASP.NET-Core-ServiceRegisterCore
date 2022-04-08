@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>Vishvaka Ranasinghe</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -12,13 +12,13 @@
     <PackageTags>ServiceRegister, ASP.Net Core, Services</PackageTags>
     <PackageId>ServiceRegisterCore</PackageId>
     <Product>ServiceRegisterCore</Product>
-    <Version>5.0.0</Version>
+    <Version>6.0.0</Version>
     <Description>Class Annotation Based Service Registration for ASP.NET Core</Description>
-    <PackageReleaseNotes>.NET 5 / ASP.NET 5 Support</PackageReleaseNotes>
+    <PackageReleaseNotes>.NET 6 / ASP.NET 6 Support</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
